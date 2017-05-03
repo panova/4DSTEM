@@ -51,6 +51,7 @@ I = I.*g;
 %values is what you want to subtract from I. 
 %Then take the absolute value. 
 %Then set the threshold limit 
+%For TACAKS TITAN:
 % I = ( abs(I-(0.15-0.04)) <0.02 )*1;
 
 %For Xi15: 

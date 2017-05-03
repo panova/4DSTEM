@@ -96,36 +96,36 @@ fname = cell(3,1);
 % xySize = [512 512];
 
 %=================================================================================================
-% TAKACS TITAN CRYO no DIO sample B10 [December 8 2016] "TC7"
+% TAKACS TITAN CRYO no DIO sample B10 [December 8 2016] "TC7" step=10nm
 % fname = ['E:\Data\Ouliana\TACAKS_Dec08_2016\' ...
 %     '7TakacsB10_10082016_cryoCL380mmp033sSS10nm128x128.dat']; 
 
-% TAKACS TITAN CRYO no DIO sample B10 [December 8 2016] "TC4"
+% TAKACS TITAN CRYO no DIO sample B10 [December 8 2016] "TC4" step=20nm
 % fname = ['E:\Data\Ouliana\TACAKS_Dec08_2016\' ...
 %     '4TakacsB10_10082016_cryoCL600mmp033sSS20nm128x128.dat']; 
 
-% TAKACS TITAN CRYO DIO sample C10 [December 8 2016] "TCDIO9"
+% % TAKACS TITAN CRYO DIO sample C10 [January 17] "TCDIO9"
 % fname = ['E:\Data\Ouliana\TACAKS_Jan17_2017_C10_andB10laterCRYO\20170117 Takas_cryo_C10\' ...
 %     '9TACAKS_CL380mm_300kV_ss10nm_128x128.dat']; 
 
-% TAKACS TITAN CRYO DIO sample C10 [December 8 2016] "TCDIO4"
+% TAKACS TITAN CRYO DIO sample C10 [January 17] "TCDIO4"
 % fname = ['E:\Data\Ouliana\TACAKS_Jan17_2017_C10_andB10laterCRYO\20170117 Takas_cryo_C10\' ...
 %     '4TACAKS_CL380mm_300kV_ss10nm_128x128.dat']; 
 
-% TAKACS TITAN CRYO DIO sample B10 [JANUARY 17 2016] "TC22"
-% fname = ['E:\Data\Ouliana\TACAKS_Jan17_2017_C10_andB10laterCRYO\20170117 Takas_cryo_C10\' ...
-%     'B102TACAKSB10_CL380mm_300kV_ss5nm_128x128.dat']; 
+% TAKACS TITAN CRYO DIO sample B10 [JANUARY 17 2016] "TC22" step=10nm
+fname = ['E:\Data\Ouliana\TACAKS_Jan17_2017_C10_andB10laterCRYO\20170117 Takas_cryo_C10\' ...
+    'B102TACAKSB10_CL380mm_300kV_ss5nm_128x128.dat']; 
 % 
 % 
-% xySize = [512 512];
+xySize = [512 512];
 
 %=================================================================================================
 % JOSE Rodrigues datasets 
 
-fname = ['E:\Data\Ouliana\XiPeptiodSheetsMarch7th2017\20170307 Xi\' ...
-    '15_pep99sheet_50x50_40nm=ss cl=600 alpha=0p13 300kV 10umC2 spot2 bin4 33ms.dat']; 
-
-xySize = [512 512];
+% fname = ['E:\Data\Ouliana\XiPeptiodSheetsMarch7th2017\20170307 Xi\' ...
+%     '15_pep99sheet_50x50_40nm=ss cl=600 alpha=0p13 300kV 10umC2 spot2 bin4 33ms.dat']; 
+% 
+% xySize = [512 512];
 
 %=================================================================================================
 

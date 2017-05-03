@@ -17,16 +17,6 @@ subSTACK = subSTACK./max(subSTACK(:));
 realDimx = 128;
 realDimy = 128;
 
-% [ XX, YY ] = Linear_center_shifts( realDimx, realDimy );
-
-% STACK = shifting_stack_linear_XXYY( STACK, XX, YY );
-
-% STACK = permute(STACK, [2, 1, 3]);
-
-%Converting to single:
-% STACK = single(STACK);
-
-% mean_STACK = mean(STACK, 3);
 
 % center = [123, 130]; % for D2
 % center = [113, 114]; % for C1
@@ -57,14 +47,15 @@ realDimy = 128;
 % imagesc(mean_subSTACK);
 % axis equal off
 
-num_peaks = 1;
+num_peaks = 4;
 
-Peaks_all = zeros([num_peaks 2 dimension(3)]);
+Peaks_all = zeros([num_peaks 3 dimension(3)]);
 
 [column, row] = meshgrid(1:dimension(2), 1:dimension(1));
 
 aesthetic_aperture_rad = 12; % Equal to 6 for D2; This is for display purposes and testing. This is the radius of the expected diffraction spot. 
-masking_aperture_rad = aesthetic_aperture_rad*3; %When looking for peaks on the DP, the peaks found will be masked with an aperture of this radius
+% masking_aperture_rad = aesthetic_aperture_rad*3; %When looking for peaks on the DP, the peaks found will be masked with an aperture of this radius
+masking_aperture_rad = aesthetic_aperture_rad*2; %When looking for peaks on the DP, the peaks found will be masked with an aperture of this radius
 
 % middle_masked = zeros([dimension(1), dimension(2), dimension(3)]);
 
@@ -91,7 +82,8 @@ subSTACK = subSTACK./max(subSTACK(:));
 %We now step over each DP:
 % for ID = 1620:dimension(3);
 % for ID = 48:51%dimension(3);
-for ID = 1:dimension(3);
+% for ID = 1:dimension(3);
+for ID = 4853;
     ID
     I = subSTACK(:, :, ID);
     I = single(I);
@@ -156,7 +148,7 @@ for ID = 1:dimension(3);
 %             if st>20    
             if st>0.             
 
-                peak_signal = sum(I(aesthetic>0)) + sum(I(aesthetic2>0));
+                peak_signal = sum(I(aesthetic>0))
                 
                 I(masked>0) = 0;
                 I(masked2>0) = 0;
@@ -164,14 +156,15 @@ for ID = 1:dimension(3);
                 Im(aesthetic>0) =  Im(aesthetic>0)+ 0.1;
                 Im(aesthetic2>0) =  Im(aesthetic2>0)+ 0.05;
                 
-                Ipeaks(i, :) = Ipeak(1:2);
+                Ipeaks(i, 1:2) = Ipeak(1:2);
+                Ipeaks(i, 3) = peak_signal;
             else
                 peak_signal = 0;
-                Ipeaks(i, :) = [0, 0];
+                Ipeaks(i, :) = [0, 0, 0];
             end
         else
             peak_signal = 0;
-            Ipeaks(i, :) = [0, 0];
+            Ipeaks(i, :) = [0, 0, 0];
         end
         
     end

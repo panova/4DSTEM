@@ -1,5 +1,6 @@
-function [ output, Greg_stack ] = dftregistration_alignment( mask, stack_centers, STACK, usfac)
+function [ Greg_stack ] = dftregistration_alignment( stack_centers, STACK, usfac)
 
+mask = stack_centers(:, :, 1);
 dimension = size(stack_centers);
 dimension2 = size(STACK);
 maskfft = fft2(mask*1);
@@ -20,7 +21,7 @@ for i = 1:dimension(3)
     slice_to_shift = single(STACK(:,:, i));
     slice_to_shiftfft = fft2(slice_to_shift);
     
-    if (usfac > 0),
+    if (usfac > 0);
         [nr,nc]=size(slice_to_shiftfft);
         Nr = ifftshift([-fix(nr/2):ceil(nr/2)-1]);
         Nc = ifftshift([-fix(nc/2):ceil(nc/2)-1]);

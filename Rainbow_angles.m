@@ -1,4 +1,4 @@
-function [ FFA, alpha ] = Rainbow_angles( peaks, realDimx, realDimy, center, mycmap )
+function [ FFA_all, alpha ] = Rainbow_angles( peaks, realDimx, realDimy, center, mycmap )
 %Peaks is an array of the found locations of the diffraction spots. It has
 %the following structure:
 % [ maximum number of peaks per DP 
@@ -8,9 +8,11 @@ function [ FFA, alpha ] = Rainbow_angles( peaks, realDimx, realDimy, center, myc
 dimension_peaks = size(peaks);
 
 for ID = 1:dimension_peaks(3)
-    peak = peaks(1, 1, ID);
-    if peak ==0
-        peaks(:, :, ID) = NaN;
+    for a = 1:dimension_peaks(1)
+        peak = peaks(a, 1, ID);
+        if peak ==0
+            peaks(a, :, ID) = NaN;
+        end
     end
 end
 
@@ -34,6 +36,8 @@ std_radial_distance_nm = std(radial_distance_nm(b==0));
 %subtracting the center to bring it to the origin:
 peaks(:, 1, :) = peaks(:, 1, :) - center(1);
 peaks(:, 2, :) = peaks(:, 2, :) - center(2);
+
+intensities = peaks(:, 3, :);
 
 FFA = rad2deg(atan(     squeeze(peaks(:, 1, :))    ./   squeeze(peaks(:, 2, :))   ));
 dimension = size(FFA);
@@ -64,21 +68,23 @@ size(k(k==1));
 % t = [0 60];
 
 % For 180 degree symmetry: 
+
 for ID = 1:dimension(2)
     for a = 1:dimension(1)
         ang = FFA(a, ID);
         if ang <= 0
             FFA(a, ID) = FFA(a, ID) + 180;
-        elseif isnan(ang) == 1
+        elseif isnan(ang) == 1;
             FFA(a, ID) = -1;
         end
     end
 end
+
 t = [0 180];
 
 
-min(FFA(:))
-max(FFA(:))
+min(FFA(:));
+max(FFA(:));
 
 % For 4-fold symmetry:
 % for ID = 1:dimension(2)
@@ -97,8 +103,24 @@ max(FFA(:))
 % clf();
 % plot(FFA);
 
+FFA_all = cat(3, FFA, squeeze(intensities));
+% FFA_all = sort(FFA, 1);
+FFA = FFA(:, :, 1);
+
+if dimension(1) ~=1;
+    'i'
+    [FFAsorted, ind] = sort(FFA, 1);
+    FFA = squeeze(FFAsorted(2, :))';
+    dimension = size(FFA);
+    k = ((FFA~=-1)*1);
+%     k = ~isnan(FFA);
+    size(k(k==1));
+
+end;
+
 %If there is only one peak: 
 FFA = squeeze(reshape(FFA, [dimension(2), realDimx, realDimy]));
+
 alpha = reshape(k, [realDimx, realDimy]);
  
 %If there are more than one peak per DP; we take the brightest one:
@@ -108,10 +130,14 @@ alpha = reshape(k, [realDimx, realDimy]);
 % alpha = alpha(realign);
 jet_wrap = vertcat(jet,flipud(jet));
 
-figure(31);
+size(FFA_all)
+
+figure(39);
 % imagesc(squeeze(FFA));
-FFA = squeeze(FFA);
-imagesc( (FFA) , 'AlphaData', alpha);
+FFA = medfilt2(squeeze(FFA));
+% FFA = squeeze(FFA);
+imagesc( FFA , 'AlphaData', alpha);
+imagesc( medfilt2(reshape(mean(FFA_all(:, :, 1), 1), [128 128])));
 
 colormap(mycmap);
 caxis(t);

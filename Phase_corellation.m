@@ -21,15 +21,18 @@ end
 
 template = ifftshift(template);
 
+
+
 %The normalization of the phase correlation:
 norml = abs(fft2(I).*conj(fft2(template)));
 %Computing the actual phase correlation:
 PC = abs(ifft2(fft2(I).*conj(fft2(template))./norml));
-
+% 
 % figure(37)
 % clf
-% imagesc(PC);
+% imagesc(medfilt2(PC));
 % axis equal off
+% colormap(jet);
 % colormap(violetFire(256));
 
 
